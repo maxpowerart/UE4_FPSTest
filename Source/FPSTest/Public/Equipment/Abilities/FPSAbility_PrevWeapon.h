@@ -1,0 +1,24 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Character/Abilities/FPSAbilityBase.h"
+#include "FPSAbility_PrevWeapon.generated.h"
+
+UCLASS()
+class UFPSAbility_PrevWeapon : public UFPSAbilityBase
+{
+	GENERATED_BODY()
+	
+public:
+	UFPSAbility_PrevWeapon();
+	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+		const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
+	virtual bool CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags,
+		const FGameplayTagContainer* TargetTags, FGameplayTagContainer* OptionalRelevantTags) const override;
+
+private:
+	UPROPERTY()
+	class UAbilityTask_PlayMontageAndWait* ChangeMontage;
+	UFUNCTION()
+	void OnMontageEnd();
+};
